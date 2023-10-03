@@ -3,7 +3,7 @@ name: Update Environment Variable
 on:
   push:
     branches:
-      - mast
+      - master
 
 jobs:
   deploy:
@@ -19,7 +19,6 @@ jobs:
             port: ${{ secrets.PORT }}
             script: |
               whoami
+              cd /Users/vivek/Documents/samplenodeapp
               ls -al
-              echo 'export LATEST_CODE="true"' >> ~/.zshrc
-              source ~/.zshrc
-              echo $MY_VAR
+              ./toggle.sh
