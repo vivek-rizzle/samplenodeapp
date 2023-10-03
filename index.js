@@ -12,7 +12,7 @@ setInterval(() => {
     console.log('LATEST_CODE not in repo ,Exiting the process....Server will be restarted automatically');
     const { spawn } = require('child_process');
     const scriptProcess = spawn('bash', ['restart.sh'], { detached: true, stdio: 'ignore' });
-    console.log('zzzzzzzzzzTriggering the bash script...');
+    console.log('Triggering the bash script...');
     process.exit(1);
   }else{
     console.log("running")
