@@ -1,37 +1,20 @@
-const chokidar = require('chokidar');
-const { Queue } = require('better-queue');
+// working 1
 
-// Create a priority queue
-const queue = new Queue((filePath, cb) => {
-  processFile(filePath)
-    .then(() => cb(null))
-    .catch((err) => cb(err));
-}, { concurrent: 1 });
+const fs = require('fs');
+const file = './values.txt';
 
-// Watch for file changes in the specified folder
-const watcher = chokidar.watch('/path/to/downloads/folder');
+setInterval(() => {
 
-// Handle new file creation or addition
-watcher.on('add', (filePath) => {
-  console.log(`New file added: ${filePath}`);
+  let value = fs.readFileSync(file, 'utf8');
 
-  // Add the file name to the priority queue
-  queue.push(filePath, (err) => {
-    if (err) {
-      console.error(`Error processing file: ${filePath}`, err);
-    }
-  });
-});
-
-// Process the file with a 1-minute delay
-function processFile(filePath) {
-  console.log(`Processing file: ${filePath}`);
-
-  return new Promise((resolve, reject) => {
-    // Simulate a 1-minute delay using setTimeout
-    setTimeout(() => {
-      console.log(`File processed: ${filePath}`);
-      resolve();
-    }, 60000);
-  });
-}
+  console.log(value);
+  if(value === 'true' || JSON.parse(value) === true){
+    console.log('LATEST_CODE not in repo ,Exiting the process....Server will be restarted automatically');
+    const { spawn } = require('child_process');
+    const scriptProcess = spawn('bash', ['restart.sh'], { detached: true, stdio: 'ignore' });
+    console.log('zzzzzzzzzzTriggering the bash script...');
+    process.exit(1);
+  }else{
+    console.log("running")
+  }
+}, 5000);
