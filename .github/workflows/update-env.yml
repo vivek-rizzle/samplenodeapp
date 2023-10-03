@@ -21,4 +21,4 @@ jobs:
               whoami
               cd /Users/vivek/Documents/samplenodeapp
               ls -al
-              ./toggle.sh false
+              ./toggle.sh true
