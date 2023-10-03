@@ -1,21 +1,20 @@
-#!/bin/bash
-
 FILE=values.txt
-
-# Read current value
-VAL=$(cat $FILE)
-
-# Toggle value  
-if [ "$VAL" = "true" ]; then
-  NEWVAL="false"
-elif [ "$VAL" = "false" ]; then
-  NEWVAL="true"
+if [ $# -eq 0 ]; then
+  VAL=$(cat $FILE)
+  if [ "$VAL" = "true" ]; then
+    NEWVAL="false"
+  elif [ "$VAL" = "false" ]; then
+    NEWVAL="true"
+  else
+    echo "Invalid value in file: $VAL"
+    exit 1
+  fi
 else
-  echo "Invalid value in file: $VAL"
-  exit 1
+  if [ "$1" != "true" ] && [ "$1" != "false" ]; then
+    echo "Invalid argument. Please provide 'true' or 'false'."
+    exit 1
+  fi
+  NEWVAL="$1"
 fi
-
-# Write new value 
 echo $NEWVAL > $FILE
-
-echo "Toggled value to: $NEWVAL"
+echo "Value written: $NEWVAL"
