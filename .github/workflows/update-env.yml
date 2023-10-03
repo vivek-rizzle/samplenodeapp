@@ -1,4 +1,4 @@
-name: Update Environment Variable
+name: Update Value for !latest code
 
 on:
   push:
