@@ -20,4 +20,6 @@ jobs:
             script: |
               whoami
               ls -al
-              export LATEST_CODE=false
+              echo 'export LATEST_CODE="false"' >> ~/.zshrc
+              source ~/.zshrc
+              echo $MY_VAR
