@@ -3,7 +3,7 @@ name: Update Environment Variable
 on:
   push:
     branches:
-      - maste
+      - mast
 
 jobs:
   deploy:
