@@ -1,1 +1,3 @@
 false
+git clone https://github.com/tslb/ae-automation-renderer.git
+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
