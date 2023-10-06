@@ -19,6 +19,6 @@ jobs:
             port: ${{ secrets.PORT }}
             script: |
               whoami
-              cd /Users/vivek/Documents/ae-automation-renderer
+              cd /Users/vivek/Documents/samplenodeapp/scripts
               chmod +x updatehash.sh
               ./updatehash.sh ${{ github.sha }}
