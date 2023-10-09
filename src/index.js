@@ -44,3 +44,7 @@ function checkHashAndRestartServer() {
   }
   });
 }
+
+function isDev(){
+  return true
+}
