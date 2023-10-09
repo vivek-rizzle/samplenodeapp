@@ -2,6 +2,7 @@
 # git pull
 # ./toggle.sh
 # pm2 start index.js
+sleep 30s
 if [ -z "$1" ]; then
     arg="development"
 else
