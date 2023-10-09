@@ -10,5 +10,5 @@ fi
 echo $arg
 git checkout master
 git pull
-./scripts/updatehash.sh
+./updatehash.sh
 pm2 start ../src/index.js -- "$arg"

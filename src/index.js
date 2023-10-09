@@ -38,7 +38,7 @@ function checkHashAndRestartServer() {
   } else {
     console.log('The current and new hash values are different.so the LATEST_CODE is not in repo, Exiting the process....Server will be restarted automatically');
     const scriptArguments = isDev() ? ['../scripts/restart.sh'] : ['../scripts/restart.sh', 'production'];
-    const scriptProcess = spawn('bash', scriptArguments, { detached: true, stdio: 'ignore' });
+    const scriptProcess = spawn('bash', scriptArguments, { detached: true});
     console.log('Triggering the bash script...');
     process.exit(1);
   }
