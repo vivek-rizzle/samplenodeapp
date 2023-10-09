@@ -35,4 +35,3 @@ else
     sed -i '' "s/^CURRENT_HASH=.*/CURRENT_HASH=$current_hash/" "$prop_file"
     echo "Successfully updated current hash in $prop_file"
 fi
-

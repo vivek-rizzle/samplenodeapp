@@ -1,5 +1,6 @@
 // working 1
 const arguments = process.argv.slice(2);
+const { exec } = require('child_process');
 
 if (arguments.length === 0) {
   process.env.NODE_ENV = 'development';
@@ -36,7 +37,22 @@ function checkHashAndRestartServer() {
   if (currentHash === newHash) {
     console.log('The current and new hash values are equal.');
   } else {
-    console.log('The current and new hash values are different.so the LATEST_CODE is not in repo, Exiting the process....Server will be restarted automatically');
+    const getCommitMessagesBetweenHashes = (hash1, hash2) => {
+      const command = `git rev-list ${hash1}..${hash2} --format=%s`;
+      return new Promise((resolve, reject) => {
+        exec(command, (error, stdout, stderr) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          const commitMessages = stdout.trim().split('\n');
+          resolve(commitMessages);
+        });
+      });
+    };
+    const commitMessages = getCommitMessagesBetweenHashes(currentHash, newHash);
+    console.log(commitMessages);
+    console.log('The current and new hash values are difcferent.so the LATEST_CODE is not in repo, Exiting the process....Server will be restarted automatically');
     const scriptArguments = isDev() ? ['../scripts/restart.sh'] : ['../scripts/restart.sh', 'production'];
     const scriptProcess = spawn('bash', scriptArguments, { detached: true});
     console.log('Triggering the bash script...');
