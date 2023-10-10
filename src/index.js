@@ -1,7 +1,6 @@
 // working 1
 const arguments = process.argv.slice(2);
-const { exec } = require('child_process');
-
+const childProcess = require('child_process');
 if (arguments.length === 0) {
   process.env.NODE_ENV = 'development';
 } else if (!['development', 'production'].includes(arguments[0])) {
@@ -37,22 +36,51 @@ function checkHashAndRestartServer() {
   if (currentHash === newHash) {
     console.log('The current and new hash values are equal.');
   } else {
-    const getCommitMessagesBetweenHashes = (hash1, hash2) => {
-      const command = `git rev-list ${hash1}..${hash2} --format=%s`;
-      return new Promise((resolve, reject) => {
-        exec(command, (error, stdout, stderr) => {
-          if (error) {
-            reject(error);
-            return;
-          }
-          const commitMessages = stdout.trim().split('\n');
-          resolve(commitMessages);
-        });
-      });
-    };
-    const commitMessages = getCommitMessagesBetweenHashes(currentHash, newHash);
-    console.log(commitMessages);
-    console.log('The current and new hash values are difcferent.so the LATEST_CODE is not in repo, Exiting the process....Server will be restarted automatically');
+    // const { exec } = require('child_process');
+    // // Get the command to spawn.
+    // const command = '../scripts/gitcommit.sh';
+    // // Execute the command and store the output in a variable.
+    // const outputPromise = exec(command);
+
+    // // Wait for the promise to resolve and get the output of the command.
+    // const output = outputPromise;
+    // // console.log(currentHash)
+    // // console.log(newHash)
+    // console.log(output);
+    // const gitlog = require('gitlog');
+    // const commits = gitlog({
+    //   repo: '/path/to/repository',
+    //   since: currentHash,
+    //   until: newHash,
+    // });
+    
+    // // Print the commits to the console.
+    // console.log(commits);
+    // const command = `git rev-list ${currentHash}..${newHash} --format=%s`;
+    // const output = exec(command, (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.error(error);
+    //     return;
+    //   }
+    //   // Store the output in a variable.
+    //   return stdout;
+    // });
+    const command = `git log ${currentHash}..${newHash}`;
+    const message = childProcess.execSync(command).toString().trim();
+    console.log(message);
+    // Do something with the output.
+    // console.log(output);
+    // const command = `git rev-list ${currentHash}..${newHash} --format=%s`;
+    // exec(command, (error, stdout, stderr) => {
+    //   if (error) {
+    //     console.error(error);
+    //     return;
+    //   }
+    //   console.log(stdout);
+    // });
+    // const commitMessages = getCommitMessagesBetweenHashes(currentHash, newHash);
+    // console.log(commitMessages);
+    // console.log('The current and new hash values are difcferent.so the LATEST_CODE is not in repo, Exiting the process....Server will be restarted automatically');
     const scriptArguments = isDev() ? ['../scripts/restart.sh'] : ['../scripts/restart.sh', 'production'];
     const scriptProcess = spawn('bash', scriptArguments, { detached: true});
     console.log('Triggering the bash script...');
