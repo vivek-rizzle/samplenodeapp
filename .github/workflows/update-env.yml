@@ -19,6 +19,8 @@ jobs:
             port: ${{ secrets.PORT }}
             script: |
               whoami
+              ls
+              echo $(pwd)
               pwd
               cd /Users/vivek/Documents/samplenodeapp/scripts
               chmod +x updatehash.sh
