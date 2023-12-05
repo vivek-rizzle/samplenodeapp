@@ -17,4 +17,4 @@ else
   NEWVAL="$1"
 fi
 echo $NEWVAL > $FILE
-echo "Value written: $NEWVAL"
+echo "Value wbritten: $NEWVAL"
