@@ -1,3 +1,33 @@
 deployment.properties
 deployment.properties.bak
 
+hi 
+i am using require('./slack-bot'), to send message to slack channel using
+postMessage fn of slack bot.
+i have a string which i want to format and send it to slack
+in the slack message first i want to add the title , "repo"
+then a code block with the string
+now the string is the output of git log command ,
+in this string i want you to write the javascript code to parse the below string
+remove the commit and date and  put commit first then its author
+commit 209ca1bee82c7b746eb5b1fac11dd44543a1f278
+Author: Rajat Sangrame 117441527+rajatinrizzle@users.noreply.github.com
+Date: Tue Oct 3 15:04:21 2023 +0530
+BACK-2007 Write script to shift all beta and prod templates to new bucket (#117)
+commit 8f32fb12e693d15a0634f35de63ca8f6c297419d
+Author: Amit Bhandari amit.b@thesilverlabs.com
+Date: Fri Sep 29 11:10:54 2023 +0530
+Added env and mongoDB installation step
+commit 6436d4821088b112c254484c99996737d364efce
+Author: Amit Bhandari amit.bhandari.c@gmail.com
+Date: Fri Sep 29 09:10:28 2023 +0530
+master: Corrected layout types validation as per latest listicle template format
+commit 62aa48e70620f7b859309aa93d5124d940d7da23
+Author: Rajat Sangrame 117441527+rajatinrizzle@users.noreply.github.com
+Date: Thu Sep 28 19:07:48 2023 +0530
+BACK-2073 Added support ofr CCN and IN
+commit bcf2a374bf8ba46042aa370983d345d0d6d1d3c3
+Author: Amit Bhandari amit.b@thesilverlabs.com
+Date: Thu Sep 28 16:34:22 2023 +0530
+NO TICKET: To avoid overriding already created video
+commit b56d06040d3a39414f20d6dbd942fc78b8ab7ed1

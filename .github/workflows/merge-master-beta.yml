@@ -1,0 +1,35 @@
+name: Merge from Master to Beta
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  mergeMasterBeta:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Git identity
+      run: |
+        git config --global user.email "actions@rizzle.com"
+        git config --global user.name "actions"
+
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Fetch entire git history
+
+    - name: Merge master into beta
+      run: |
+        git checkout beta
+        git merge --no-ff --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
+        git commit -m "Automated merge master -> beta" || true
+        git push origin beta
+
+    - name: Send Slack
+      if: ${{ failure() }}
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        text: Merge conflicts occurred when merging master into beta. Please resolve <!subteam^${{ inputs.slackTeamTag }}>.
