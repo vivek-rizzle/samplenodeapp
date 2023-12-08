@@ -22,7 +22,6 @@ jobs:
     - name: Merge master into beta
       run: |
         git checkout beta
-        git fetch --unshallow
         git merge --no-ff --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
         git commit -m "Automated merge master -> beta" || true
         git push origin beta -u ${{ secrets.MY_CUSTOM_TOKEN }}
