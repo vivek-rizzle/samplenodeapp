@@ -18,16 +18,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0 # Fetch entire git history
-        token: ${{ secrets.MY_CUSTOM_TOKEN }}
+
 
     - name: Merge master into beta
       run: |
         git checkout beta
         git merge --no-ff --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
         git commit -m "Automated merge master -> beta" || true
-        git push origin beta ${{ secrets.MY_CUSTOM_TOKEN }}
-        # Update the push command to include the secret token.
-        # Alternatively, you can use the "env" key to set the token as an environment variable.
+        git push origin beta
 
     - name: Send Slack
       if: ${{ failure() }}
