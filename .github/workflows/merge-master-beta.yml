@@ -25,7 +25,7 @@ jobs:
         git checkout beta
         git merge --no-ff --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
         git commit -m "Automated merge master -> beta" || true
-        git push origin beta -u ${{ secrets.MY_CUSTOM_TOKEN }}
+        git push origin beta ${{ secrets.MY_CUSTOM_TOKEN }}
         # Update the push command to include the secret token.
         # Alternatively, you can use the "env" key to set the token as an environment variable.
 
