@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   mergeMasterBeta:
     runs-on: ubuntu-latest
@@ -21,9 +22,12 @@ jobs:
     - name: Merge master into beta
       run: |
         git checkout beta
+        git fetch --unshallow
         git merge --no-ff --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
         git commit -m "Automated merge master -> beta" || true
-        git push origin beta
+        git push origin beta -u ${{ secrets.MY_CUSTOM_TOKEN }}
+        # Update the push command to include the secret token.
+        # Alternatively, you can use the "env" key to set the token as an environment variable.
 
     - name: Send Slack
       if: ${{ failure() }}
@@ -32,4 +36,4 @@ jobs:
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        text: Merge conflicts occurred when merging master into beta. Please resolve <!subteam^${{ inputs.slackTeamTag }}>.
+        text: Merge conflicts occurred when merging master into beta. Please resolve <!subteam^U02U7L6G5P>.
