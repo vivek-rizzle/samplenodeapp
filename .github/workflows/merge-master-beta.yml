@@ -27,7 +27,7 @@ jobs:
         git checkout beta
         git pull
         git merge origin/master
-        git push origin beta ${{ secrets.MY_CUSTOM_TOKEN }}
+        git push origin beta
         # git checkout master
         # git fetch origin
         # git checkout beta
