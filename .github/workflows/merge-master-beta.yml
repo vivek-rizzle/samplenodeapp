@@ -15,7 +15,7 @@ jobs:
         git config --global user.email "actions@rizzle.com"
         git config --global user.name "actions"
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # Fetch entire git history
         token: ${{ secrets.MY_CUSTOM_TOKEN }}
