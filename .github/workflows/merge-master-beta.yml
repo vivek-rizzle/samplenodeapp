@@ -26,15 +26,9 @@ jobs:
         git fetch origin
         git checkout beta
         git pull
-        git merge origin/master
+        git merge --no-ff  origin/master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
+        git commit -m "Automated merge master -> beta" || true
         git push origin beta
-        # git checkout master
-        # git fetch origin
-        # git checkout beta
-        # git pull
-        # git merge --no-ff  origin/master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
-        # git commit -m "Automated merge master -> beta" || true
-        # git push origin beta ${{ secrets.MY_CUSTOM_TOKEN }}
 
     - name: Send Slack
       if: ${{ failure() }}
