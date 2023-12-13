@@ -29,6 +29,7 @@ jobs:
     #     github_token: ${{ secrets.MY_CUSTOM_TOKEN }}
     - name: Merge master into beta
       run: |
+        git checkout beta
         if git merge --no-ff --no-commit --no-edit master; then
             if ! git diff --quiet --cached; then
                 echo "Merge conflict occurred. Please resolve conflicts."
