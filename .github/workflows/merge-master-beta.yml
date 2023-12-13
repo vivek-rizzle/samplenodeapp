@@ -29,21 +29,19 @@ jobs:
     #     github_token: ${{ secrets.MY_CUSTOM_TOKEN }}
     - name: Merge master into beta
       run: |
-          git fetch origin master
-          git fetch origin beta
-          
-          # Checkout the beta branch
+          # Fetching changes from remote branches
+          git fetch origin master beta
+          # Checking out the beta branch
           git checkout beta
-          
-          # Merge master into beta
-          if ! git merge --no-commit --no-ff origin/master; then
-              echo "Merge conflict detected. Aborting."
+          # Attempting to merge master into beta
+          if git merge --no-commit --no-ff origin/master && ! git diff --quiet; then
+              echo "Merge successful."
+              git commit -m "Merge 'master' into 'beta'" && git push origin beta
+          else
+              echo "Merge failed or no changes detected. Aborting."
               git merge --abort
               exit 1
           fi
-          
-          # Push changes to the beta branch
-          git push origin beta
         # if git merge --no-ff --no-commit --no-edit master; then
         #     if ! git diff --quiet --cached; then
         #         echo "Merge conflict occurred. Please resolve conflicts."
