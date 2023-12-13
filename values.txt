@@ -1,1 +1,3 @@
-i am conflicter
+
+i am commited to master
+
