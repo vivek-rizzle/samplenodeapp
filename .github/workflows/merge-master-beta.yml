@@ -34,7 +34,7 @@ jobs:
             if ! git diff --quiet --cached; then
                 echo "Merge conflict occurred. Please resolve conflicts."
                 # Handle conflicts here if needed
-                git merge --abort  # Abort the merge process
+                git merge --abort && exit 1  # Abort the merge process
             else
                 git commit -m "Merge changes from master into beta"
                 echo "Merge successful"
