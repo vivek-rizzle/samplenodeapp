@@ -34,7 +34,7 @@ jobs:
           # Checking out the beta branch
           git checkout beta
           # Attempting to merge master into beta
-          if git merge --no-commit --no-ff origin/master && ! git diff --quiet; then
+          if git merge --no-commit origin/master; then
               echo "Merge successful."
               git commit -m "Merge 'master' into 'beta'" && git push origin beta
           else
