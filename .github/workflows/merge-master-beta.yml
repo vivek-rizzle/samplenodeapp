@@ -20,21 +20,48 @@ jobs:
         fetch-depth: 0 # Fetch entire git history
         token: ${{ secrets.MY_CUSTOM_TOKEN }}
 
-    - name: Merge development -> staging
-      uses: devmasx/merge-branch@master
-      with:
-        type: now
-        from_branch: master
-        target_branch: beta
-        github_token: ${{ secrets.MY_CUSTOM_TOKEN }}
-    # - name: Merge master into beta
-    #   run: |
-    #     git checkout master
-    #     git fetch origin
-    #     git checkout beta
-    #     git pull
-    #     git merge --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
-    #     git push -u origin beta
+    # - name: Merge development -> staging
+    #   uses: devmasx/merge-branch@master
+    #   with:
+    #     type: now
+    #     from_branch: master
+    #     target_branch: beta
+    #     github_token: ${{ secrets.MY_CUSTOM_TOKEN }}
+    - name: Merge master into beta
+      run: |
+          # Fetching changes from remote branches
+          git fetch origin master beta
+          # Checking out the beta branch
+          git checkout beta
+          # Attempting to merge master into beta
+          if git merge --no-commit origin/master; then
+              echo "Merge successful."
+              git commit -m "Merge 'master' into 'beta'" && git push origin beta
+          else
+              echo "Merge failed or no changes detected. Aborting."
+              git merge --abort
+              exit 1
+          fi
+        # if git merge --no-ff --no-commit --no-edit master; then
+        #     if ! git diff --quiet --cached; then
+        #         echo "Merge conflict occurred. Please resolve conflicts."
+        #         # Handle conflicts here if needed
+        #         git merge --abort  # Abort the merge process
+        #     else
+        #         git commit -m "Merge changes from master into beta"
+        #         echo "Merge successful"
+        #         git push origin beta 
+        #     fi
+        # else
+        #     echo "Merge failed"
+        # fi
+        # git checkout master
+        # git fetch origin
+        # git checkout beta
+        # git pull
+        # git merge --no-commit master || (echo "CONFLICT: Merge conflict detected" && git merge --abort && exit 1)
+        # git push -u origin beta
+
     - name: Send Slack
       if: ${{ failure() }}
       env:
