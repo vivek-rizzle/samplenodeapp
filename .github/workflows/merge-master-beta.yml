@@ -7,9 +7,9 @@ on:
       - master
 jobs:
   mergeMasterBeta:
-      uses: vivek-rizzle/workflows/.github/workflows/merge-master-beta.yml@master
-      with:
-        slackTeamTag: S04TNETUZCL
-      secrets:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          GH_TOKEN: ${{ secrets.MY_CUSTOM_TOKEN }}
+      uses: vivek-rizzle/workflows/.github/workflows/sls-delete.yml@master
+      # with:
+      #   slackTeamTag: S04TNETUZCL
+      # secrets:
+      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      #     GH_TOKEN: ${{ secrets.MY_CUSTOM_TOKEN }}
