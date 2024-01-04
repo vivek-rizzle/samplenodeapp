@@ -1,15 +1,15 @@
-name: Merge from Master to Beta
-on:
-  schedule:
-    - cron: '*/2 * * * *' # Runs at 11:00 am IST from Mon-Fri.
-  # push:
-  #   branches:
-  #     - master
-jobs:
-  mergeMasterBeta:
-      uses: vivek-rizzle/workflows/.github/workflows/sls-delete.yml@master
-      # with:
-      #   slackTeamTag: S04TNETUZCL
-      # secrets:
-      #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      #     GH_TOKEN: ${{ secrets.MY_CUSTOM_TOKEN }}
+# name: Merge from Master to Beta
+# on:
+#   schedule:
+#     - cron: '*/2 * * * *' # Runs at 11:00 am IST from Mon-Fri.
+#   # push:
+#   #   branches:
+#   #     - master
+# jobs:
+#   mergeMasterBeta:
+#       uses: vivek-rizzle/workflows/.github/workflows/sls-delete.yml@master
+#       # with:
+#       #   slackTeamTag: S04TNETUZCL
+#       # secrets:
+#       #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+#       #     GH_TOKEN: ${{ secrets.MY_CUSTOM_TOKEN }}
